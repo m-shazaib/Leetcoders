@@ -12,14 +12,21 @@ const Index = () => {
   const [profile, setProfile] = useState(null);
   const [users, setUsers] = useState([]);
 
-  
+  const updateUsernameColumn = async (username: string) => {
+    username = "matiurrehman";
+    const { data, error } = await supabase
+      .from("LeetCode-UserID")
+      .insert([{ leetcode_username : username }]);
 
-        
+      if(error) {
+        console.error("Error inserting username:", error);
+      }
+  };
+
+ 
 
   const handleSubmit = async () => {
     try {
-      
-
       // Construct the API URL correctly
       const url = `${EXPO_LEETCODE_API_KEY}${username}`;
       console.log("API URL:", url);
@@ -31,6 +38,8 @@ const Index = () => {
       console.error("Error fetching profile:", error);
       Toast.show("User not found", { duration: 5000 });
     }
+
+    
   };
 
   return (
