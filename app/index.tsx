@@ -23,7 +23,21 @@ const Index = () => {
       }
   };
 
- 
+  const fetchAllUsernames = async () => {
+    try {
+      let { data, error } = await supabase
+        .from("LeetCode-UserID")
+        .select("leetcode_username");
+
+      if (error) throw error;
+      else {
+        setUsers(data as unknown as []);
+        console.log("Users:", data);
+      }
+    } catch (error) {
+      console.error("Error fetching usernames:", error);
+    }
+  }
 
   const handleSubmit = async () => {
     try {
